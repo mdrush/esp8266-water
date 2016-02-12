@@ -1,0 +1,16 @@
+- GPIO0 and GPIO2 are used for I2C since they both need pull ups.
+
+- An external ADC was chosen because the ESP's internal ADC is limited to
+	voltages of 0-1v, is not likely to be consistent, and it would be best
+	to have a external reference since the pressure sensor has a
+	ratiometric output.
+
+- The internal ADC could be used for sensing battery voltage instead, if
+	power by a battery without a linear regulator.
+
+- Deep sleep can be used by connecting GPIO16 (XPD_DCDC) to RESET, however
+	OTA update can only be done while the ESP is not sleeping.
+	(Also, the led trace can be cut to further reduce power.)
+
+- GPIO16 is connected onlu to RESET and CH_PD is used instead of RESET when 
+	programming. RESET has a built in pull up resistor.
